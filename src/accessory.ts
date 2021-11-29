@@ -119,12 +119,13 @@ class ThermoHygrometer implements AccessoryPlugin {
 
         if (!isNaN(jsonData.temp)) {
           this.temperature = jsonData.temp;
-          this.deviceThermoService.getCharacteristic(Characteristic.CurrentTemperature).updateValue(this.temperature, undefined, 'fromSetValue');
+          this.deviceThermoService.setCharacteristic(this.api.hap.Characteristic.CurrentTemperature, this.temperature);
           this.log.info("Temp : " + this.temperature);
         }
+
         if (!isNaN(jsonData.humidity)) {
           this.humidity = jsonData.humidity;
-          this.deviceHumidityService.getCharacteristic(Characteristic.CurrentRelativeHumidity).updateValue(this.humidity, undefined, 'fromSetValue');
+          this.deviceHumidityService.setCharacteristic(this.api.hap.Characteristic.CurrentRelativeHumidity, this.humidity);
           this.log.info("Humidity : " + this.humidity);
         }
       }

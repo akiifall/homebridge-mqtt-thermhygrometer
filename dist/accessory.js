@@ -2,7 +2,6 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-const homebridge_1 = require("homebridge");
 let hap;
 const mqtt_1 = __importDefault(require("mqtt"));
 class ThermoHygrometer {
@@ -65,12 +64,12 @@ class ThermoHygrometer {
                 let jsonData = JSON.parse(message.toString());
                 if (!isNaN(jsonData.temp)) {
                     this.temperature = jsonData.temp;
-                    this.deviceThermoService.getCharacteristic(homebridge_1.Characteristic.CurrentTemperature).updateValue(this.temperature, undefined, 'fromSetValue');
+                    this.deviceThermoService.setCharacteristic(this.api.hap.Characteristic.CurrentTemperature, this.temperature);
                     this.log.info("Temp : " + this.temperature);
                 }
                 if (!isNaN(jsonData.humidity)) {
                     this.humidity = jsonData.humidity;
-                    this.deviceHumidityService.getCharacteristic(homebridge_1.Characteristic.CurrentRelativeHumidity).updateValue(this.humidity, undefined, 'fromSetValue');
+                    this.deviceHumidityService.setCharacteristic(this.api.hap.Characteristic.CurrentRelativeHumidity, this.humidity);
                     this.log.info("Humidity : " + this.humidity);
                 }
             }
