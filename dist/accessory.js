@@ -25,10 +25,10 @@ class ThermoHygrometer {
         // Service Type
         this.deviceThermoService = new hap.Service.TemperatureSensor(this.deviceName);
         this.deviceThermoService.getCharacteristic(this.api.hap.Characteristic.CurrentTemperature)
-            .on("get" /* GET */, this.getOnHandlerThermo.bind(this));
+            .on("get" /* GET */, this.getThermoHandler.bind(this));
         this.deviceHumidityService = new hap.Service.HumiditySensor(this.deviceName);
         this.deviceHumidityService.getCharacteristic(this.api.hap.Characteristic.CurrentRelativeHumidity)
-            .on("get" /* GET */, this.getOnHandlerHumidity.bind(this));
+            .on("get" /* GET */, this.getHumidityHandler.bind(this));
         this.mqttOptions = {
             keepalive: 10,
             clientId: this.deviceName + "_" + (Math.random() * 10000).toFixed(0),
@@ -52,10 +52,10 @@ class ThermoHygrometer {
         this.setMqttEvent();
         log.info(this.deviceName + " plugin loaded.");
     }
-    getOnHandlerThermo(callback) {
+    getThermoHandler(callback) {
         callback(null, this.temperature);
     }
-    getOnHandlerHumidity(callback) {
+    getHumidityHandler(callback) {
         callback(null, this.humidity);
     }
     setMqttEvent() {

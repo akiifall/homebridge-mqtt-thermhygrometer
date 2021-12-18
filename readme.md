@@ -1,1 +1,1 @@
-personal use only. sorry :)
+- Temperature and Humidity Sensor Accessory with Local MQTT Server

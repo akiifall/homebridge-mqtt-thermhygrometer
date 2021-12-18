@@ -71,11 +71,11 @@ class ThermoHygrometer implements AccessoryPlugin {
       // Service Type
     this.deviceThermoService = new hap.Service.TemperatureSensor(this.deviceName);
     this.deviceThermoService.getCharacteristic(this.api.hap.Characteristic.CurrentTemperature)
-      .on(CharacteristicEventTypes.GET, this.getOnHandlerThermo.bind(this));
+      .on(CharacteristicEventTypes.GET, this.getThermoHandler.bind(this));
 
     this.deviceHumidityService = new hap.Service.HumiditySensor(this.deviceName);
     this.deviceHumidityService.getCharacteristic(this.api.hap.Characteristic.CurrentRelativeHumidity)
-      .on(CharacteristicEventTypes.GET, this.getOnHandlerHumidity.bind(this));
+      .on(CharacteristicEventTypes.GET, this.getHumidityHandler.bind(this));
 
     this.mqttOptions = {
       keepalive: 10,
@@ -104,11 +104,11 @@ class ThermoHygrometer implements AccessoryPlugin {
     log.info(this.deviceName + " plugin loaded.");
   }
 
-	getOnHandlerThermo (callback: any) {
+	getThermoHandler (callback: any) {
     callback(null, this.temperature);
 	}
 
-  getOnHandlerHumidity (callback: any) {
+  getHumidityHandler (callback: any) {
     callback(null, this.humidity);
 	}
 
